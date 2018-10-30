@@ -1,0 +1,7 @@
+cache/
+data/
+log/
+session/
+vendor/
+workspace/
+.env
