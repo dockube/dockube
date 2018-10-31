@@ -30,6 +30,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   k8s-node3:
     driver: ${VOLUMES_DRIVER}
+  k8s-nfs:
+    driver: ${VOLUMES_DRIVER}
   portainer:
     driver: ${VOLUMES_DRIVER}
   workspace:

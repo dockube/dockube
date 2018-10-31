@@ -18,8 +18,8 @@ DAEMON_MODE="1"                           # (0 = disable daemon mode, 1 = runnin
 USERNAME=`echo $USER`
 PATH_HOME=`echo $HOME`
 
-CONTAINER_PRODUCTION="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 workspace"
-CONTAINER_DEVELOPMENT="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 workspace"
+CONTAINER_PRODUCTION="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs workspace"
+CONTAINER_DEVELOPMENT="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs"
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
