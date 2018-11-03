@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 #  Author     : Dwi Fahni Denni (@zeroc0d3)
 #  Repository : https://github.com/dockube/dockube
-#  License    : MIT
+#  License    : Apache v2
 # -----------------------------------------------------------------------------
 
 TITLE="K8S-CONTAINER BUILDER SCRIPT"      # script name
