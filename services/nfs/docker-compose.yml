@@ -28,7 +28,7 @@ services:
     build:
       context: .
       args:
-        - INSTALL_GOLANG=${WORKSPACE_INSTALL_GOLANG}
+        - INSTALL_GOLANG=true
     container_name: dockube_nfs
     hostname: dockube-nfs
     #domainname: dockube-nfs
@@ -42,7 +42,7 @@ services:
       - "10251"
       - "10251/tcp"
     ports:
-      - "${NFS_PORT}:22/tcp"
+      - "226:22/tcp"
     ### DO NOT USE FOR "docker registry / build images" ###
     # volumes:
     #   - /etc/localtime:/etc/localtime:ro
