@@ -85,6 +85,8 @@ RUN apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-
 	mc \
       nfs-kernel-server
 
+RUN mkdir -p /data
+
 # ================================================================================================
 #  CLEAN UP INSTALLATION
 # ================================================================================================
@@ -93,5 +95,6 @@ RUN apt-get clean && \
 
 CMD ["/sbin/init"]
 EXPOSE 22 22/tcp
+EXPOSE 2379 2379/tcp
 EXPOSE 6443 6443/tcp
 EXPOSE 10251 10251/tcp
