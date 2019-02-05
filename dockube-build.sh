@@ -9,7 +9,7 @@
 
 TITLE="K8S-CONTAINER BUILDER SCRIPT"      # script name
 VER="1.4.4"                               # script version
-ENV="0"                                   # container environment (0 = development, 1 = production)
+ENV="0"                                   # container environment (0 = development, 1 = staging, 2 = production)
 SKIP_BUILD="0"                            # (0 = with build process, 1 = bypass build process)
 REMOVE_CACHE="0"                          # (0 = using cache, 1 = no-cache)
 RECREATE_CONTAINER="0"                    # (0 = disable recreate container, 1 = force recreate container)
@@ -19,7 +19,8 @@ USERNAME=`echo $USER`
 PATH_HOME=`echo $HOME`
 
 CONTAINER_PRODUCTION="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs workspace"
-CONTAINER_DEVELOPMENT="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs"
+CONTAINER_STAGING="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs"
+CONTAINER_DEVELOPMENT="portainer k8s-master1 k8s-node1"
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
@@ -74,6 +75,9 @@ build_env() {
   if [ "$ENV" = "0" ]
   then
     BUILD_ENV="$CONTAINER_DEVELOPMENT"
+  elif [ "$ENV" = "1" ]
+  then
+    BUILD_ENV="$CONTAINER_STAGING"
   else
     BUILD_ENV="$CONTAINER_PRODUCTION"
   fi
