@@ -43,7 +43,7 @@ RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 # Generate Public Key
 #-----------------------------------------------------------------------------
 # Create new public key
-RUN /usr/bin/ssh-keygen -t rsa -b 4096 -C "k8s@tokopedia.local" -f $HOME/.ssh/id_rsa -q -N ""; sync
+RUN /usr/bin/ssh-keygen -t rsa -b 4096 -C "k8s@dockube.local" -f $HOME/.ssh/id_rsa -q -N ""; sync
 
 RUN mkdir -p $HOME/.ssh \
     && touch $HOME/.ssh/authorized_keys \
