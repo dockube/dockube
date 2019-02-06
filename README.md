@@ -21,13 +21,40 @@ Docker container for Kubernetes deployment tools (via Kubespray).
 * Ansible
 * Portainer (Docker UI Tools)
 
-### **How To Run**
+### **How To Run DocKube**
 * Setup Environment
   ```
   cp .env.example .env
   ```
 * Customize your own environment `.env`
-* Copy your public-key (`id_rsa.pub`) to each `ssh-key` folder.
+* Copy your public-key (`id_rsa.pub`) to each `ssh-key` in services folder.
+* Setup your own environment DocKube deployment in `dockube-build.sh` file.
+  ```
+  ENV="0"                    # container environment (0 = development, 1 = staging, 2 = production)
+  SKIP_BUILD="0"             # (0 = with build process, 1 = bypass build process)
+  REMOVE_CACHE="0"           # (0 = using cache, 1 = no-cache)
+  RECREATE_CONTAINER="0"     # (0 = disable recreate container, 1 = force recreate container)
+  DAEMON_MODE="1"            # (0 = disable daemon mode, 1 = running daemon mode / background)
+
+  USERNAME=`echo $USER`
+  PATH_HOME=`echo $HOME`
+
+  CONTAINER_PRODUCTION="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs workspace"
+  CONTAINER_STAGING="portainer k8s-master1 k8s-master2 k8s-node1 k8s-node2 k8s-node3 k8s-nfs"
+  CONTAINER_DEVELOPMENT="portainer k8s-master1 k8s-node1"
+  ```
+* Running **DocKube** Services:
+  ```
+  make [services]:
+    - dockube-run:    Running Container DocKube
+    - compose-build:  Build spesific container services
+    - compose-up:     Start all container
+    - dockube-stop:   Stop all container DocKube
+    - dockube-down:   Delete all container DocKube
+  ```
+
+### **How To Run Kubespray**
+* Copy your public-key (`id_rsa.pub`) to each `ssh-key` in services folder.
 * Clone Repository `Kubespray` from our repo [`dockube/kubespray`](https://github.com/dockube/kubespray).
   ```
   Go to `workspace` folder clone `kubespray` from
@@ -38,7 +65,7 @@ Docker container for Kubernetes deployment tools (via Kubespray).
   ```
 * Configure `kubespray/ansible.cfg`:
   ```
-  ### DCI / Baremetal / AWS / GCP ###
+  ### Baremetal / AWS / GCP ###
   #remote_user=ubuntu
 
   ### OpenStack / DigitalOcean (DO) / DocKube ###
@@ -57,15 +84,6 @@ Docker container for Kubernetes deployment tools (via Kubespray).
   DOCKUBE_PATH_KEY="/opt/keyserver/key-dockube.pem"
   STAGING_PATH_KEY="/opt/keyserver/key-staging.pem"
   PRODUCTION_PATH_KEY="/opt/keyserver/key-prod.pem"
-  ```
-* Running **DocKube** Services:
-  ```
-  make [services]:
-    - dockube-run:    Running Container DocKube
-    - compose-build:  Build spesific container services
-    - compose-up:     Start all container
-    - dockube-stop:   Stop all container DocKube
-    - dockube-down:   Delete all container DocKube
   ```
 * Running **Kubespray** Services:
   ```
