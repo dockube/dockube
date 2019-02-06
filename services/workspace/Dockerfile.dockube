@@ -21,6 +21,38 @@ RUN cat /tmp/ownkey.pub >> $HOME/.ssh/authorized_keys
 CMD ["/usr/sbin/sshd", "-D"]
 
 # ================================================================================================
+#  INSTALL ANSIBLE
+# ================================================================================================
+USER root
+ARG INSTALL_ANSIBLE=false
+RUN if [ "${INSTALL_ANSIBLE}" = true ]; then \
+      /bin/sh /opt/install_ansible.sh \
+    ;fi
+
+# ================================================================================================
+#  INSTALL GOLANG
+# ================================================================================================
+USER root
+ARG INSTALL_GOLANG=false
+RUN if [ "${INSTALL_GOLANG}" = true ]; then \
+      /bin/sh /opt/install_golang.sh \
+    ;fi
+
+ENV GOPATH=$HOME/go
+ENV GOROOT=/usr/local/go
+ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+RUN mkdir -p "${GOPATH}/src" "${GOPATH}/bin" && chmod -R 777 "${GOPATH}"
+
+# ================================================================================================
+#  INSTALL NFS (CLIENT)
+# ================================================================================================
+RUN apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
+	mc \
+      nfs-common
+
+RUN mkdir -p /data-node
+
+# ================================================================================================
 #  CLEAN UP INSTALLATION
 # ================================================================================================
 RUN apt-get clean && \
