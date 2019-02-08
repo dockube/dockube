@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=16.04
+ARG UBUNTU_VERSION=18.04
 FROM dockube/dockube-nfs:${UBUNTU_VERSION}
 
 # ================================================================================================
